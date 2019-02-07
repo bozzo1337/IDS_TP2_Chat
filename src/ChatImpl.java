@@ -1,8 +1,43 @@
 import java.rmi.*;
+import java.io.*;
 
-public class ChatImpl extends Chat {
+public class ChatImpl implements Chat {
 
-	public void publish(String publisher, String message)  throws RemoteException {
-		
+	private String history;
+
+	public ChatImpl(){
+		try {
+			history = "";
+			InputStream stream = new FileInputStream("history.txt"); 
+			InputStreamReader reader = new InputStreamReader(stream);
+			BufferedReader buff = new BufferedReader(reader);
+			String line;
+			while ((line = buff.readLine())!=null){
+				history = history + line + "\n";
+			}
+			buff.close(); 
+		}		
+		catch (Exception e){
+			System.out.println(e.toString());
+		}
+	}
+
+	public void publish(RegistryClients reg, Client_itf client, String message)  throws RemoteException {
+		for (int i = 0 ; i < reg.getClients().size() ; i++){
+			reg.getClients().get(i).receive(client.getName(), message);
+		}
+		history = history + client.getName() + " : " + message + "\n";
+		try {
+			FileOutputStream fosHistory = new FileOutputStream(new File("history.txt"));
+			fosHistory.write(history.getBytes());
+			fosHistory.flush();
+			fosHistory.close();
+		} catch (Exception e){
+			System.out.println(e.toString());
+		}
+	}
+
+	public String loadHistory(){
+		return history;
 	}
 }

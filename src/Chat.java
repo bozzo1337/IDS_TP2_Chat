@@ -1,7 +1,6 @@
 import java.rmi.*;
 
 public interface Chat extends Remote {
-	public void publish(String publisher, String message)  throws RemoteException;
-
-	public void receive() throws RemoteException;
+	public void publish(RegistryClients reg, Client_itf client, String message) throws RemoteException;
+	public String loadHistory() throws RemoteException;
 }
