@@ -1,6 +1,3 @@
-export CLASSPATH="/home/bozzo/Documents/M1S2/IDS/TP2_Chat/classes"
-echo $CLASSPATH
-
 javac -d classes -classpath .:classes src/RegistryClients.java
 cd classes
 jar cvf ../lib/RegistryClients.jar RegistryClients.class

@@ -2,6 +2,7 @@ import java.rmi.*;
 import java.rmi.server.*; 
 import java.rmi.registry.*;
 import java.util.Scanner;
+import java.util.regex.*;
 
 public class ChatClient implements Client_itf{
 
@@ -24,23 +25,42 @@ public class ChatClient implements Client_itf{
 			Chat chat = (Chat) registry.lookup("ChatService");
 			RegistryClients reg = (RegistryClients) registry.lookup("RegistryService");
 
-			System.out.println("Bonjour, quel est votre nom ?");
+			System.out.println("** Bonjour, quel est votre nom ? (N'utilisez que des caractères alphabétiques) **");
 			Scanner sc = new Scanner(System.in);
 
 			boolean registered = false;
+			
+			String name = "";
+			boolean onlyAlphabet = false;
 			while(!registered){
-				c.setName(sc.nextLine());
+				name = sc.nextLine();
+				onlyAlphabet = name.matches("^[a-zA-Z]*$");
+				while(name.equals("") || !onlyAlphabet ){
+					System.out.println("** Erreur : Ce nom n'est pas autorisé, veuillez en entrer un nouveau (uniquement composé de lettres) **");
+					name = sc.nextLine();
+					onlyAlphabet = name.matches("^[a-zA-Z]*$");
+				}
+				c.setName(name);
 				registered = reg.register(c_stub);
 			}
-			System.out.println("Bienvenue sur le service de chat");
+			System.out.println("** Bienvenue sur le service de chat **");
 			System.out.println(chat.loadHistory());
 			String message = sc.nextLine();
-			while(!message.equals("/quit")){			
-				chat.publish(reg, c_stub, message);
-				message = sc.nextLine();
+			while(!message.equals("/quit")){
+				if(message.equals("/list")){
+					System.out.println("** Personne(s) présente(s) **");
+					for(int i = 0 ; i < reg.getClients().size() ; i++){
+						System.out.println(reg.getClients().get(i).getName());
+					}
+					System.out.println("** **");
+					message = sc.nextLine();
+				} else {
+					chat.publish(reg, name + " : " + message);
+					message = sc.nextLine();
+				}			
 			}
 			reg.unregister(c_stub);
-			System.out.println("Fin du chat, miaou !");
+			System.out.println("** Fin du chat, miaou ! **");
 			System.exit(0);
 
 		} catch (Exception e)  {
@@ -56,7 +76,7 @@ public class ChatClient implements Client_itf{
 		this.name = name;
 	}
 
-	public void receive(String publisher, String message) throws RemoteException {
-		System.out.println(publisher + " : " + message);
+	public void receive(String message) throws RemoteException {
+		System.out.println(message);
 	}
 }

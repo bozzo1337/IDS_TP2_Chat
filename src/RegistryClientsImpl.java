@@ -9,9 +9,9 @@ public class RegistryClientsImpl implements RegistryClients {
 		this.clients = new ArrayList<Client_itf>();
 	}
 
-	public void broadcast(Client_itf publisher, String message) throws RemoteException {
+	public void broadcast(String message) throws RemoteException {
 		for(int i = 0 ; i < clients.size() ; i++) {
-			clients.get(i).receive(publisher.getName(), message);
+			clients.get(i).receive(message);
 		}
 	}
 
@@ -26,9 +26,10 @@ public class RegistryClientsImpl implements RegistryClients {
 		}
 		if (!alreadyRegistered) {
 			clients.add(client);
+			broadcast("** " + client.getName() + " vient de rejoindre le chat **");
 			return true;
 		} else {
-			client.receive("Erreur serveur", "Nom déjà utilisé, veuillez en entrer un nouveau");
+			client.receive("** Erreur : Nom déjà utilisé, veuillez en entrer un nouveau **");
 			return false;
 		}
 	}
@@ -40,6 +41,7 @@ public class RegistryClientsImpl implements RegistryClients {
 			if (client.getName().equals(clients.get(i).getName())) {
 				clients.remove(i);
 				unregisterDone = true;
+				broadcast("** " + client.getName() + " vient de quitter le chat **");
 			}
 			i++;
 		}

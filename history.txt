@@ -18,3 +18,17 @@ Jack : une interface ?
 Jack : why not
 Pile : salut
 Pile : re
+Paul : salut Pierre
+Pierre : salut Paul
+Jean : hih
+Tim : sympa
+Luc : oki
+Luk : 
+Henri : salut la troupe
+Henry : salut Henri
+Henri : salut Henry
+Paul12 : bonjour
+Jack/!@ : lu
+JeanJean : salut
+Pol : Salut
+Paul : Salut

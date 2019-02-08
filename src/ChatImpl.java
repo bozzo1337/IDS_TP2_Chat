@@ -22,11 +22,9 @@ public class ChatImpl implements Chat {
 		}
 	}
 
-	public void publish(RegistryClients reg, Client_itf client, String message)  throws RemoteException {
-		for (int i = 0 ; i < reg.getClients().size() ; i++){
-			reg.getClients().get(i).receive(client.getName(), message);
-		}
-		history = history + client.getName() + " : " + message + "\n";
+	public void publish(RegistryClients reg, String message)  throws RemoteException {
+		reg.broadcast(message);
+		history = history + message + "\n";
 		try {
 			FileOutputStream fosHistory = new FileOutputStream(new File("history.txt"));
 			fosHistory.write(history.getBytes());
