@@ -43,8 +43,7 @@ public class ChatClient implements Client_itf{
 				c.setName(name);
 				registered = reg.register(c_stub);
 			}
-			System.out.println("** Bienvenue sur le service de chat **");
-			System.out.println(chat.loadHistory());
+			
 			String message = sc.nextLine();
 			while(!message.equals("/quit")){
 				if(message.equals("/list")){
@@ -52,12 +51,13 @@ public class ChatClient implements Client_itf{
 					for(int i = 0 ; i < reg.getClients().size() ; i++){
 						System.out.println(reg.getClients().get(i).getName());
 					}
-					System.out.println("** **");
-					message = sc.nextLine();
+					System.out.println("** - - - - - - - - - - - - **");
+				} else if(message.equals("/history")) {
+					System.out.println(chat.loadHistory());
 				} else {
 					chat.publish(reg, name + " : " + message);
-					message = sc.nextLine();
-				}			
+				}
+				message = sc.nextLine();		
 			}
 			reg.unregister(c_stub);
 			System.out.println("** Fin du chat, miaou ! **");

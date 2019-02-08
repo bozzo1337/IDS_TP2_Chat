@@ -18,7 +18,7 @@ public class ChatServer {
 
 			registry.bind("RegistryService", r_stub);
 
-			System.out.println ("Server ready");
+			System.out.println ("Serveur prêt.");
 
 		} catch (Exception e) {
 			System.err.println("Error on server :" + e) ;

@@ -26,7 +26,12 @@ public class RegistryClientsImpl implements RegistryClients {
 		}
 		if (!alreadyRegistered) {
 			clients.add(client);
-			broadcast("** " + client.getName() + " vient de rejoindre le chat **");
+			client.receive("** Bienvenue sur le service de chat **");
+			for(int j = 0 ; j < clients.size() ; j++) {
+				if (!clients.get(j).getName().equals(client.getName())){
+					clients.get(j).receive("** " + client.getName() + " vient de rejoindre le chat **");
+				}	
+			}
 			return true;
 		} else {
 			client.receive("** Erreur : Nom déjà utilisé, veuillez en entrer un nouveau **");

@@ -32,3 +32,6 @@ Jack/!@ : lu
 JeanJean : salut
 Pol : Salut
 Paul : Salut
+JeanJean : Bonjour
+Pilou : Salut
+Jiji : Boujour
