@@ -3,6 +3,7 @@ import java.rmi.server.*;
 import java.rmi.registry.*;
 import java.util.Scanner;
 import java.util.regex.*;
+import java.io.*;
 
 public class ChatClient implements Client_itf{
 
@@ -45,6 +46,9 @@ public class ChatClient implements Client_itf{
 			}
 			
 			String message = sc.nextLine();
+			int count = 1; 
+			System.out.print(String.format("\033[%dA",count)); 
+			System.out.print("\033[2K");
 			while(!message.equals("/quit")){
 				if(message.equals("/list")){
 					System.out.println("** Personne(s) présente(s) **");
@@ -57,7 +61,9 @@ public class ChatClient implements Client_itf{
 				} else {
 					chat.publish(reg, name + " : " + message);
 				}
-				message = sc.nextLine();		
+				message = sc.nextLine();
+				System.out.print(String.format("\033[%dA",count)); 
+				System.out.print("\033[2K");		
 			}
 			reg.unregister(c_stub);
 			System.out.println("** Fin du chat, miaou ! **");

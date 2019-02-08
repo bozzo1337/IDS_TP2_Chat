@@ -35,3 +35,35 @@ Paul : Salut
 JeanJean : Bonjour
 Pilou : Salut
 Jiji : Boujour
+Fread : Merci
+Fread : Hmm
+Pol : Salut
+Pol : Mince
+Patrick : Salut
+Patrick : Ca va ?
+Lu : Salut
+Lu : Ca marche po
+Jack : Salut
+Pol : Salut
+Pol : :(
+Pol : aaaah
+Pol : Salut
+Pol : :(
+Jik : Salut
+Po : Salut
+p : lo
+p : ca marcheee
+Tutu : merci
+Tutu : Comment vas-tu ?
+Tutu : Bien et toi ?
+Tutu : youpiii
+Tim : bonjour
+Tutu : bonjour
+Tutu : jolie la new feature
+Tim : t'as vu !
+Tim : c'est plus clair
+Tutu : j'suis d'accord
+Tutu : un peu de couleur ?
+Tutu : ça se fait
+Tutu : demain
+Tim : oui
