@@ -45,7 +45,7 @@ public class ChatImpl implements Chat {
 			clientTarget.receive(sender.getName() + " vous chuchote :" + message);
 			sender.receive("Vous chuchotez à " + target + " :" + message);
 		} else {
-			sender.receive("** Utilisateur non connecté **");
+			sender.receive("** Erreur : " + target + " non connecté **");
 		}
 	}
 }

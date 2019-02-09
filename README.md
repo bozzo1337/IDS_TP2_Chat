@@ -5,8 +5,8 @@ AMAL Mouataz : mouataz.amal@etu-univ.grenoble.alpes.fr
 LONGA Benjamin : benjamin.longa@etu-univ.grenoble.alpes.fr
 
 # /!\ Warning /!\
-Cette application de chat ne peut être utilisée qu'à partir d'un terminal (pas d'un IDE)
-en raison de certaines fonctionnalités.
+Cette application de chat ne peut être utilisée qu'à partir d'un terminal non-Windows
+(pas d'un IDE) en raison de certaines fonctionnalités.
 
 # Architecture
 Le serveur enregistre deux interfaces au Registre RMI :

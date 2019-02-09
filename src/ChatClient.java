@@ -115,6 +115,8 @@ public class ChatClient implements Client_itf{
 							System.out.println("** Utilisation : /w <Nom de la cible> <Message> **");
 						}	
 					}
+				} else if (message.startsWith("/")) {
+					System.out.println("** Commande non reconnue, tapez /help pour les commandes disponibles **");
 				} else {
 					chat.publish(reg, c.getColor() + c.getName() + " : " + message);
 					System.out.print(ColorString.ANSI_RESET);

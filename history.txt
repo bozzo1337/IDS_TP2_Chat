@@ -112,3 +112,8 @@ Tim : oui
 [35mL : salut
 [32mR : bonjour
 [31mTu : salut
+[36mBen : salut
+[36mBen : comment va ?
+[36mBin : Salut
+[36mBin : lololo
+[0mBin : hopla
