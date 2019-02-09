@@ -38,4 +38,14 @@ public class ChatImpl implements Chat {
 	public String loadHistory(){
 		return history;
 	}
+	
+	public void whisper(RegistryClients reg, Client_itf sender, String target, String message) throws RemoteException {
+		Client_itf clientTarget = reg.getClient(target);
+		if (clientTarget != null){
+			clientTarget.receive(sender.getName() + " vous chuchote :" + message);
+			sender.receive("Vous chuchotez à " + target + " :" + message);
+		} else {
+			sender.receive("** Utilisateur non connecté **");
+		}
+	}
 }

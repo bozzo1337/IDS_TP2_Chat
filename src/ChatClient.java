@@ -35,26 +35,29 @@ public class ChatClient implements Client_itf{
 			boolean registered = false;
 			
 			//Verification du nom
-			String name = "";
+			String nameEntry = "";
 			boolean onlyAlphabet = false;
 			while(!registered){
-				name = sc.nextLine();
-				onlyAlphabet = name.matches("^[a-zA-Z]*$");
-				while(name.equals("") || !onlyAlphabet ){
+				nameEntry = sc.nextLine();
+				onlyAlphabet = nameEntry.matches("^[a-zA-Z]*$");
+				while(nameEntry.equals("") || !onlyAlphabet ){
 					System.out.println("** Erreur : Ce nom n'est pas autorisé, veuillez en entrer un nouveau (uniquement composé de lettres) **");
-					name = sc.nextLine();
-					onlyAlphabet = name.matches("^[a-zA-Z]*$");
+					nameEntry = sc.nextLine();
+					onlyAlphabet = nameEntry.matches("^[a-zA-Z]*$");
 				}
-				c.setName(name);
+				c.setName(nameEntry);
 				//Enregistrement au registre
 				registered = reg.register(c_stub);
 			}
-			System.out.println("** Commandes disponibles : **\n" + 
+			String commandes = "** Commandes disponibles : **\n" + 
 				"/list : Affiche la liste des personnes présentes\n" +
 				"/history : Affiche l'historique des conversations\n" +
-				"/color : Change la couleur de votre texte\n" +
+				"/color <Couleur> : Change la couleur de votre texte\n" +
+				"/w <Nom de la cible> <Message> : Envoie un message privé à la cible\n" +
+				"/help : Affiche la liste des commandes\n" +
 				"/quit : Quitte le chat\n" +
-				"** - - - - - - - - - - - - **");
+				"** - - - - - - - - - - - - **";
+			System.out.println(commandes);
 			String message = sc.nextLine();
 			//Effacement de l'entrée faite par l'utilisateur (plus de doublon)
 			System.out.print(String.format("\033[%dA", 1)); 
@@ -90,9 +93,29 @@ public class ChatClient implements Client_itf{
 					} else if(message.equals("/color cyan")){
 						c.setColor(ColorString.ANSI_CYAN);
 					} else {
-						System.out.println("Couleur non reconnue");
+						System.out.println("** Couleur non reconnue **\n** Couleurs disponibles : default, red, green, yellow, blue, purple, cyan **");
 					}
-				}else{
+				}else if (message.equals("/help")) {
+					System.out.println(commandes);
+				} else if (message.startsWith("/w")) {
+					Scanner scString = new Scanner(message);
+					if (message.equals("/w")) {
+						System.out.println("** Utilisation : /w <Nom de la cible> <Message> **");
+					} else {
+						scString.next();
+						if (scString.hasNext()){
+							String target = scString.next();
+							if (scString.hasNext()){
+								String messageWhisp = scString.nextLine();
+								chat.whisper(reg, c_stub, target, messageWhisp);
+							} else {
+								System.out.println("** Utilisation : /w <Nom de la cible> <Message> **");
+							}
+						} else {
+							System.out.println("** Utilisation : /w <Nom de la cible> <Message> **");
+						}	
+					}
+				} else {
 					chat.publish(reg, c.getColor() + c.getName() + " : " + message);
 					System.out.print(ColorString.ANSI_RESET);
 				}

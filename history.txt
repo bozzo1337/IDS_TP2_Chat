@@ -102,3 +102,13 @@ Tim : oui
 [35mlo : ofd
 [36mlo : dsok
 [36mlo : zoek
+[32mJo : Salut
+[32mJo : hihi
+[32mPaul : Bonjour
+[31mLuc : Bonjour
+[35mPi : bonjour tout le monde
+[32mPaul : salut
+[31mLuc : salut
+[35mL : salut
+[32mR : bonjour
+[31mTu : salut

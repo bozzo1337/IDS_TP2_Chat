@@ -57,4 +57,17 @@ public class RegistryClientsImpl implements RegistryClients {
 	public ArrayList<Client_itf> getClients(){
 		return this.clients;
 	}
+
+	public Client_itf getClient(String name) throws RemoteException{
+		boolean clientFound = false;
+		int i = 0;
+		while(i < clients.size() && !clientFound) {
+			if (name.equals(clients.get(i).getName())) {
+				clientFound = true;
+				return clients.get(i);
+			}
+			i++;
+		}
+		return null;
+	}
 }
