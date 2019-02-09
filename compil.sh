@@ -1,3 +1,7 @@
+javac -d classes -classpath .:classes src/InterfaceClient.java
+
+javac -d classes -classpath .:classes src/NameInputFrame.java
+
 javac -d classes -classpath .:classes src/ColorString.java
 cd classes
 jar cvf ../lib/ColorString.jar ColorString.class

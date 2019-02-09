@@ -1,5 +1,6 @@
 import java.rmi.*;
 import java.util.*;
+import javax.swing.*;
 
 public class RegistryClientsImpl implements RegistryClients {
 
@@ -21,16 +22,17 @@ public class RegistryClientsImpl implements RegistryClients {
 		if (!alreadyRegistered) {
 			clients.add(client);
 			client.setColor(ColorString.drawColor());
-			client.receive("** Bienvenue sur le service de chat **");
+			client.addChatField("** Bienvenue sur le service de chat **\n");
 			//Broadcast sauf pour l'utilisateur qui vient de se connecter
 			for(int j = 0 ; j < clients.size() ; j++) {
 				if (!clients.get(j).getName().equals(client.getName())){
-					clients.get(j).receive("** " + client.getName() + " vient de rejoindre le chat **");
+					clients.get(j).addChatField("** " + client.getName() + " vient de rejoindre le chat **");
 				}	
 			}
 			return true;
 		} else {
-			client.receive("** Erreur : Nom déjà utilisé, veuillez en entrer un nouveau **");
+			client.setOutputServer("Erreur : Nom déjà utilisé, veuillez en entrer un nouveau");
+			client.setNameFrameSize(500, 100);
 			return false;
 		}
 	}
