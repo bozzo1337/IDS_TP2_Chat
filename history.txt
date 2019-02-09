@@ -117,3 +117,6 @@ Tim : oui
 [36mBin : Salut
 [36mBin : lololo
 [0mBin : hopla
+[31mPol : salut
+[0mPier : salut
+[36mPier : cyan

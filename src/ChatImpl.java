@@ -23,7 +23,7 @@ public class ChatImpl implements Chat {
 	}
 
 	public void publish(RegistryClients reg, String message)  throws RemoteException {
-		reg.broadcast(message);
+		broadcast(reg, message);
 		history = history + message + "\n";
 		try {
 			FileOutputStream fosHistory = new FileOutputStream(new File("history.txt"));
@@ -32,6 +32,12 @@ public class ChatImpl implements Chat {
 			fosHistory.close();
 		} catch (Exception e){
 			System.out.println(e.toString());
+		}
+	}
+
+	public void broadcast(RegistryClients reg, String message) throws RemoteException {
+		for(int i = 0 ; i < reg.getClients().size() ; i++) {
+			reg.getClients().get(i).receive(message);
 		}
 	}
 

@@ -9,12 +9,6 @@ public class RegistryClientsImpl implements RegistryClients {
 		this.clients = new ArrayList<Client_itf>();
 	}
 
-	public void broadcast(String message) throws RemoteException {
-		for(int i = 0 ; i < clients.size() ; i++) {
-			clients.get(i).receive(message);
-		}
-	}
-
 	public boolean register(Client_itf client) throws RemoteException {
 		boolean alreadyRegistered = false;
 		int i = 0;
@@ -48,7 +42,9 @@ public class RegistryClientsImpl implements RegistryClients {
 			if (client.getName().equals(clients.get(i).getName())) {
 				clients.remove(i);
 				unregisterDone = true;
-				broadcast("** " + client.getName() + " vient de quitter le chat **");
+				for(int j = 0 ; j < clients.size() ; j++) {
+					clients.get(j).receive("** " + client.getName() + " vient de quitter le chat **");
+				}
 			}
 			i++;
 		}
