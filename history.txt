@@ -67,3 +67,38 @@ Tutu : un peu de couleur ?
 Tutu : ça se fait
 Tutu : demain
 Tim : oui
+[35mPierre : Merci
+[35mPierre : Bonjour
+[32mTuc : salut
+[32mTuc : hihi
+[32mTuc : ok
+[33mR : bonjour
+[32mTuc : salut
+[35mG : salut
+[35mODO : odor
+[35mOKDA : dodor
+[33mRET : lul
+[33mPitrik : salut
+[35mJinijin : hello
+[36mTulip : li
+[34mBaja : salut
+[34mBaja : horrible cette couleur
+[31mBaja : re
+[33mBaja : jaune
+[36mBaja : cyan
+[34mBaja : hm
+[31mJul : JUJUJUL
+[0mJul : merci
+[36mpierre : salut
+[36mpierre : je suis cyan
+[36mpierre : ok ca va pas
+[36mjk : salut
+[36mjk : salut
+[36mjk : hm
+[35mlo : ds
+[35mlo : ori
+[35mlo : oakrz
+[35mlo : oja
+[35mlo : ofd
+[36mlo : dsok
+[36mlo : zoek

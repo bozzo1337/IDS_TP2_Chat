@@ -1,3 +1,8 @@
+javac -d classes -classpath .:classes src/ColorString.java
+cd classes
+jar cvf ../lib/ColorString.jar ColorString.class
+cd ..
+
 javac -d classes -classpath .:classes src/RegistryClients.java
 cd classes
 jar cvf ../lib/RegistryClients.jar RegistryClients.class
@@ -23,6 +28,6 @@ cd classes
 jar cvf ../lib/RegistryClientsImpl.jar RegistryClientsImpl.class
 cd ..
 
-javac -d classes -cp .:classes:lib/Chat.jar:/lib/ChatImpl.jar:/lib/RegistryClients.jar:/lib/RegistryClientsImpl.jar src/ChatServer.java
+javac -d classes -cp .:classes:lib/Chat.jar:/lib/ChatImpl.jar:/lib/RegistryClients.jar:/lib/RegistryClientsImpl.jar:/lib/ColorString.jar src/ChatServer.java
 
 javac -d classes -cp .:classes:/lib/Client_itf.jar:/lib/Chat.jar:/lib/RegistryClients.jar src/ChatClient.java

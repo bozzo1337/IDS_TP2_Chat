@@ -8,6 +8,7 @@ import java.io.*;
 public class ChatClient implements Client_itf{
 
 	private String name;
+	private String color;
 
 	public static void main(String [] args){
 		try {
@@ -20,9 +21,11 @@ public class ChatClient implements Client_itf{
 
 			Registry registry = LocateRegistry.getRegistry(host);
 
+			//Creation de la reference client
 			ChatClient c = new ChatClient();
 			Client_itf c_stub = (Client_itf) UnicastRemoteObject.exportObject(c, 0);
 
+			//Recuperation des services serveur
 			Chat chat = (Chat) registry.lookup("ChatService");
 			RegistryClients reg = (RegistryClients) registry.lookup("RegistryService");
 
@@ -31,6 +34,7 @@ public class ChatClient implements Client_itf{
 
 			boolean registered = false;
 			
+			//Verification du nom
 			String name = "";
 			boolean onlyAlphabet = false;
 			while(!registered){
@@ -42,29 +46,62 @@ public class ChatClient implements Client_itf{
 					onlyAlphabet = name.matches("^[a-zA-Z]*$");
 				}
 				c.setName(name);
+				//Enregistrement au registre
 				registered = reg.register(c_stub);
 			}
-			
+			System.out.println("** Commandes disponibles : **\n" + 
+				"/list : Affiche la liste des personnes présentes\n" +
+				"/history : Affiche l'historique des conversations\n" +
+				"/color : Change la couleur de votre texte\n" +
+				"/quit : Quitte le chat\n" +
+				"** - - - - - - - - - - - - **");
 			String message = sc.nextLine();
-			int count = 1; 
-			System.out.print(String.format("\033[%dA",count)); 
+			//Effacement de l'entrée faite par l'utilisateur (plus de doublon)
+			System.out.print(String.format("\033[%dA", 1)); 
 			System.out.print("\033[2K");
 			while(!message.equals("/quit")){
 				if(message.equals("/list")){
+					//Affichage de la liste des personnes connectees
 					System.out.println("** Personne(s) présente(s) **");
 					for(int i = 0 ; i < reg.getClients().size() ; i++){
 						System.out.println(reg.getClients().get(i).getName());
 					}
 					System.out.println("** - - - - - - - - - - - - **");
 				} else if(message.equals("/history")) {
+					//Affichage de l'historique
 					System.out.println(chat.loadHistory());
-				} else {
-					chat.publish(reg, name + " : " + message);
+					System.out.print(ColorString.ANSI_RESET);
+				} else if(message.startsWith("/color")) {
+					//Changement de la couleur par l'utilisateur
+					if(message.equals("/color")){
+						System.out.println("** Utilisation : /color <Couleur> **\n** Couleurs disponibles : default, red, green, yellow, blue, purple, cyan **");
+					} else if(message.equals("/color default")){
+						c.setColor(ColorString.ANSI_RESET);
+					} else if(message.equals("/color red")){
+						c.setColor(ColorString.ANSI_RED);
+					} else if(message.equals("/color green")){
+						c.setColor(ColorString.ANSI_GREEN);
+					} else if(message.equals("/color yellow")){
+						c.setColor(ColorString.ANSI_YELLOW);
+					} else if(message.equals("/color blue")){
+						c.setColor(ColorString.ANSI_BLUE);
+					} else if(message.equals("/color purple")){
+						c.setColor(ColorString.ANSI_PURPLE);
+					} else if(message.equals("/color cyan")){
+						c.setColor(ColorString.ANSI_CYAN);
+					} else {
+						System.out.println("Couleur non reconnue");
+					}
+				}else{
+					chat.publish(reg, c.getColor() + c.getName() + " : " + message);
+					System.out.print(ColorString.ANSI_RESET);
 				}
 				message = sc.nextLine();
-				System.out.print(String.format("\033[%dA",count)); 
-				System.out.print("\033[2K");		
+				//Effacement de l'entrée faite par l'utilisateur (plus de doublon)
+				System.out.print(String.format("\033[%dA",1)); 
+				System.out.print("\033[2K");
 			}
+			//Depart de l'utilisateur
 			reg.unregister(c_stub);
 			System.out.println("** Fin du chat, miaou ! **");
 			System.exit(0);
@@ -84,5 +121,14 @@ public class ChatClient implements Client_itf{
 
 	public void receive(String message) throws RemoteException {
 		System.out.println(message);
+		System.out.print(ColorString.ANSI_RESET);
+	}
+
+	public void setColor(String color) throws RemoteException {
+		this.color = color;
+	}
+
+	public String getColor() throws RemoteException {
+		return color;
 	}
 }
