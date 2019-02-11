@@ -1,33 +1,33 @@
-javac -d classes -classpath .:classes src/ColorString.java
+javac -d classes -classpath .:classes src/nf.ColorString.java
 cd classes
-jar cvf ../lib/ColorString.jar ColorString.class
+jar cvf ../lib/nf.ColorString.jar nf.ColorString.class
 cd ..
 
-javac -d classes -classpath .:classes src/RegistryClients.java
+javac -d classes -classpath .:classes src/nf.RegistryClients.java
 cd classes
-jar cvf ../lib/RegistryClients.jar RegistryClients.class
+jar cvf ../lib/nf.RegistryClients.jar nf.RegistryClients.class
 cd ..
 
-javac -d classes -classpath .:classes src/Chat.java
+javac -d classes -classpath .:classes src/nf.Chat.java
 cd classes
-jar cvf ../lib/Chat.jar Chat.class
+jar cvf ../lib/nf.Chat.jar nf.Chat.class
 cd ..
 
-javac -d classes -classpath .:classes src/ChatImpl.java
+javac -d classes -classpath .:classes src/nf.ChatImpl.java
 cd classes
-jar cvf ../lib/ChatImpl.jar ChatImpl.class
+jar cvf ../lib/nf.ChatImpl.jar nf.ChatImpl.class
 cd ..
 
-javac -d classes -classpath .:classes src/Client_itf.java
+javac -d classes -classpath .:classes src/nf.Client_itf.java
 cd classes
-jar cvf ../lib/Client_itf.jar Client_itf.class
+jar cvf ../lib/nf.Client_itf.jar nf.Client_itf.class
 cd ..
 
-javac -d classes -classpath .:classes src/RegistryClientsImpl.java
+javac -d classes -classpath .:classes src/nf.RegistryClientsImpl.java
 cd classes
-jar cvf ../lib/RegistryClientsImpl.jar RegistryClientsImpl.class
+jar cvf ../lib/nf.RegistryClientsImpl.jar nf.RegistryClientsImpl.class
 cd ..
 
-javac -d classes -cp .:classes:lib/Chat.jar:/lib/ChatImpl.jar:/lib/RegistryClients.jar:/lib/RegistryClientsImpl.jar:/lib/ColorString.jar src/ChatServer.java
+javac -d classes -cp .:classes:lib/nf.Chat.jar:/lib/nf.ChatImpl.jar:/lib/nf.RegistryClients.jar:/lib/nf.RegistryClientsImpl.jar:/lib/nf.ColorString.jar src/nf.ChatServer.java
 
-javac -d classes -cp .:classes:/lib/Client_itf.jar:/lib/Chat.jar:/lib/RegistryClients.jar src/ChatClient.java
+javac -d classes -cp .:classes:/lib/nf.Client_itf.jar:/lib/nf.Chat.jar:/lib/nf.RegistryClients.jar src/nf.ChatClient.java

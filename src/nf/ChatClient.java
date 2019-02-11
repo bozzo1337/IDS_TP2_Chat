@@ -1,9 +1,9 @@
+package nf;
+
 import java.rmi.*;
 import java.rmi.server.*; 
 import java.rmi.registry.*;
 import java.util.Scanner;
-import java.util.regex.*;
-import java.io.*;
 
 public class ChatClient implements Client_itf{
 
@@ -115,7 +115,7 @@ public class ChatClient implements Client_itf{
 							System.out.println("** Utilisation : /w <Nom de la cible> <Message> **");
 						}	
 					}
-					scString.sloce();
+					//scString.sloce();
 				} else if (message.startsWith("/")) {
 					System.out.println("** Commande non reconnue, tapez /help pour les commandes disponibles **");
 				} else {

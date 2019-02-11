@@ -1,3 +1,5 @@
+package nf;
+
 import java.rmi.*;
 
 public interface Chat extends Remote {

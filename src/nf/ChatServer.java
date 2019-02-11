@@ -1,5 +1,6 @@
-import java.rmi.*; 
-import java.rmi.server.*; 
+package nf;
+
+import java.rmi.server.*;
 import java.rmi.registry.*;
 
 public class ChatServer {

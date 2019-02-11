@@ -10,18 +10,18 @@ Cette application de chat ne peut être utilisée qu'à partir d'un terminal non
 
 # Architecture
 Le serveur enregistre deux interfaces au Registre RMI :
-	- Chat : interface permettant au client de publier ses messages sur le chat (méthode
+	- nf.Chat : interface permettant au client de publier ses messages sur le chat (méthode
 		publish), d'envoyer un message privé à un utilisateur (méthode whisper) et
 		d'afficher l'historique des conversations (fonction loadHistory).
 		Cette interface comporte également la méthode broadcast permettant de diffuser le
 		message aux autres utilisateurs.
 		L'implémentation de cette interface gère l'historique des messages.
-	- RegistryClients : interface permettant au client de s'enregistrer auprès du serveur
+	- nf.RegistryClients : interface permettant au client de s'enregistrer auprès du serveur
 		(fonction register) et de se retirer des inscrits lorsqu'il quitte le chat
 		(méthode unregister).
 
 Le client envoie directement au serveur une interface :
-	- Client_itf : interface permettant au serveur d'envoyer un message au client
+	- nf.Client_itf : interface permettant au serveur d'envoyer un message au client
 		(méthode receive), de récupérer le nom du client (fonction getName) et de fixer
 		sa couleur à l'enregistrement (méthode setColor).
 
@@ -34,10 +34,10 @@ sont ainsi générés.
 
 # Lancement du chat
 Dans le terminal "serveur", commencez par entrer la commande "rmiregistry &" afin de
-lancer le registre RMI. Entrez ensuite "java ChatServer" pour lancer le serveur. Un
+lancer le registre RMI. Entrez ensuite "java nf.ChatServer" pour lancer le serveur. Un
 message "Serveur prêt" devrait apparaître si tout s'est correctement déroulé.
 
-Dans les terminaux "clients", entrez "java ChatClient localhost". N'oubliez pas qu'il
+Dans les terminaux "clients", entrez "java nf.ChatClient localhost". N'oubliez pas qu'il
 faut définir le CLASSPATH pour chaque nouveau terminal.
 
 # Utilisation du chat

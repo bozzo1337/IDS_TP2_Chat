@@ -1,3 +1,5 @@
+package nf;
+
 import java.util.Random;
 import java.lang.*;
 
