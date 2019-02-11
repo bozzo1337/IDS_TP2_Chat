@@ -1,5 +1,5 @@
 *.class
 *.jar
 *.iml
-.idea/*
+.idea/*.xml
 out/*
