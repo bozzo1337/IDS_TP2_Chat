@@ -26,19 +26,19 @@ public class ChatClient implements Client_itf{
 			Registry registry = LocateRegistry.getRegistry(host);
 
 			//Creation de la reference client
-			ChatClient c = new ChatClient();
-			Client_itf c_stub = (Client_itf) UnicastRemoteObject.exportObject(c, 0);
+			final ChatClient c = new ChatClient();
+			final Client_itf c_stub = (Client_itf) UnicastRemoteObject.exportObject(c, 0);
 
 			//Recuperation des services serveur
-			Chat chat = (Chat) registry.lookup("ChatService");
-			RegistryClients reg = (RegistryClients) registry.lookup("RegistryService");
+			final Chat chat = (Chat) registry.lookup("ChatService");
+			final RegistryClients reg = (RegistryClients) registry.lookup("RegistryService");
 
 			//Creation des fenetres d'entree du nom & de chat
 			c.setNameFrame(new NameInputFrame());
 			c.setChatFrame(new InterfaceClient());
-			JTextField nameField = c.getNameFrame().getNameField();
-			JTextField outputServer = c.getNameFrame().getOutputServer();
-			JButton validateButton = c.getNameFrame().getValidateButton();
+			final JTextField nameField = c.getNameFrame().getNameField();
+			final JTextField outputServer = c.getNameFrame().getOutputServer();
+			final JButton validateButton = c.getNameFrame().getValidateButton();
 			
 
 			//Ajout des listeners
@@ -66,15 +66,15 @@ public class ChatClient implements Client_itf{
   				} 
 			} );
 			
-			String commandes = "** Commandes disponibles : **\n" + 
+			final String commandes = "** Commandes disponibles : **\n" + 
 				"/history : Affiche l'historique des conversations\n" +
 				"/w <Nom de la cible> <Message> : Envoie un message privé à la cible\n" +
 				"/help : Affiche la liste des commandes\n" +
 				"/quit : Quitte le chat\n";
-			c.addChatField(commandes);
+			c.receive(commandes);
 			
-			JButton send = c.getChatFrame().getSendButton();
-			JTextField messageField = c.getChatFrame().getInputField();
+			final JButton send = c.getChatFrame().getSendButton();
+			final JTextField messageField = c.getChatFrame().getInputField();
 
 			send.addActionListener(new ActionListener() { 
   				public void actionPerformed(ActionEvent e) { 

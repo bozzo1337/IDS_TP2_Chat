@@ -1,6 +1,5 @@
 import java.rmi.*;
 import java.util.*;
-import javax.swing.*;
 
 public class RegistryClientsImpl implements RegistryClients {
 
@@ -15,31 +14,40 @@ public class RegistryClientsImpl implements RegistryClients {
 	public boolean register(Client_itf client) throws RemoteException {
 		boolean alreadyRegistered = false;
 		int i = 0;
-		while(i < clients.size() && !alreadyRegistered) {
-			if (client.getName().equals(clients.get(i).getName())) {
-				alreadyRegistered = true;
-			}
-			i++;
-		}
-		if (!alreadyRegistered) {
-			clients.add(client);
-			client.addChatField("** Bienvenue sur le service de chat, " + client.getName() + " **\n");
-			affichageClients = affichageClients + client.getName() + "\n";
-			
-			//Broadcast sauf pour l'utilisateur qui vient de se connecter
-			for(int j = 0 ; j < clients.size() ; j++) {
-				if (!clients.get(j).getName().equals(client.getName())){
-					clients.get(j).addChatField("** " + client.getName() + " vient de rejoindre le chat **");
-				}
-				clients.get(j).setUsersField(affichageClients);
-			}
+		try {
 
-			return true;
-		} else {
-			client.setOutputServer("Erreur : Nom déjà utilisé, veuillez en entrer un nouveau");
-			client.setNameFrameSize(500, 100);
-			return false;
+			while(i < clients.size() && !alreadyRegistered) {
+				if (client.getName().equals(clients.get(i).getName())) {
+					alreadyRegistered = true;
+				}
+				i++;
+			}
+			if (!alreadyRegistered) {
+				clients.add(client);
+				client.receive("** Bienvenue sur le service de chat, " + client.getName() + " **\n");
+				affichageClients = affichageClients + client.getName() + "\n";
+				
+				//Broadcast sauf pour l'utilisateur qui vient de se connecter
+				for(int j = 0 ; j < clients.size() ; j++) {
+					if (!clients.get(j).getName().equals(client.getName())){
+						clients.get(j).receive("** " + client.getName() + " vient de rejoindre le chat **");
+					}
+				}
+
+				for (int u = 0 ; u < clients.size() ; u++) {
+					//clients.get(u).setUsersField(affichageClients);
+				}
+
+				return true;
+			} else {
+				client.setOutputServer("Erreur : Nom déjà utilisé, veuillez en entrer un nouveau");
+				client.setNameFrameSize(500, 100);
+				return false;
+			}
+		} catch(Exception e){
+			System.err.println("Error on server: " + e);
 		}
+		return false;
 	}
 
 	public void unregister(Client_itf client) throws RemoteException {
@@ -57,17 +65,21 @@ public class RegistryClientsImpl implements RegistryClients {
 				affichageClients = affichageClients + currentName + "\n";
 			}
 		}
+		try{
 
-		while(i < clients.size() && !unregisterDone){
-			if (client.getName().equals(clients.get(i).getName())) {
-				clients.remove(i);
-				unregisterDone = true;
-				for(int j = 0 ; j < clients.size() ; j++) {
-					clients.get(j).receive("** " + client.getName() + " vient de quitter le chat **");
-					clients.get(j).setUsersField(affichageClients);
+			while(i < clients.size() && !unregisterDone){
+				if (client.getName().equals(clients.get(i).getName())) {
+					clients.remove(i);
+					unregisterDone = true;
+					for(int j = 0 ; j < clients.size() ; j++) {
+						clients.get(j).receive("** " + client.getName() + " vient de quitter le chat **");
+						//clients.get(j).setUsersField(affichageClients);
+					}
 				}
+				i++;
 			}
-			i++;
+		} catch(Exception e){
+			System.err.println("Error on server: " + e);
 		}
 	}
 

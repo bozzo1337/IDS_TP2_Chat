@@ -1,6 +1,5 @@
 import java.rmi.*;
 import java.util.*;
-import javax.swing.JFrame;
 
 public interface RegistryClients extends Remote {
 	public boolean register(Client_itf client) throws RemoteException;
