@@ -21,7 +21,7 @@ public class RegistryClientsImpl implements RegistryClients {
 		if (!alreadyRegistered) {
 			clients.add(client);
 			client.setColor(ColorString.drawColor());
-			client.receive("** Bienvenue sur le service de chat **");
+			client.receive("** Bienvenue sur le service de chat, " + client.getName() + " **");
 			//Broadcast sauf pour l'utilisateur qui vient de se connecter
 			for(int j = 0 ; j < clients.size() ; j++) {
 				if (!clients.get(j).getName().equals(client.getName())){
