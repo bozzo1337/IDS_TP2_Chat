@@ -115,6 +115,7 @@ public class ChatClient implements Client_itf{
 							System.out.println("** Utilisation : /w <Nom de la cible> <Message> **");
 						}	
 					}
+					scString.sloce();
 				} else if (message.startsWith("/")) {
 					System.out.println("** Commande non reconnue, tapez /help pour les commandes disponibles **");
 				} else {
@@ -129,6 +130,7 @@ public class ChatClient implements Client_itf{
 			//Depart de l'utilisateur
 			reg.unregister(c_stub);
 			System.out.println("** Fin du chat, miaou ! **");
+			sc.close();
 			System.exit(0);
 
 		} catch (Exception e)  {
