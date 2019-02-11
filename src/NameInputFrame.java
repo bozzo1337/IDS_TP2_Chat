@@ -33,6 +33,7 @@ public class NameInputFrame extends JFrame {
 	    this.getRootPane().setDefaultButton(validate);
 	    this.getContentPane().add(pane);
 	    this.setVisible(true);
+	    nameField.requestFocus();
 	}
 
 	public JTextField getNameField(){

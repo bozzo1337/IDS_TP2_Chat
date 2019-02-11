@@ -10,6 +10,7 @@ public interface Client_itf extends Remote {
 	public JTextField getNameField() throws RemoteException;
 	public JTextArea getChatField() throws RemoteException;
 	public void addChatField(String s) throws RemoteException;
+	public void setUsersField(String s) throws RemoteException;
 	public void setOutputServer(String output) throws RemoteException;
 	public void setNameFrameSize(int width, int length) throws RemoteException;
 }

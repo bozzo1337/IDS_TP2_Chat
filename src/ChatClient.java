@@ -149,6 +149,9 @@ public class ChatClient implements Client_itf{
 	        	}
 	        });
 
+	        JTextArea usersList = c.getChatFrame().getUsersField();
+
+
 		} catch (Exception e)  {
 			System.err.println("Error on client: " + e);
 		}
@@ -200,7 +203,13 @@ public class ChatClient implements Client_itf{
 	}
 
 	public void addChatField(String s) throws RemoteException {
-		this.getChatField().append(s + "\n");
+		JTextArea chat = this.getChatField();
+		chat.append(s + "\n");
+	}
+
+	public void setUsersField(String s) throws RemoteException {
+		JTextArea users = this.chatFrame.getUsersField();
+		users.setText(s);
 	}
 
 	public void setOutputServer(String output) throws RemoteException {

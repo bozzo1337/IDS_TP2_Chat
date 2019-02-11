@@ -15,7 +15,7 @@ public class InterfaceClient extends JFrame {
 
 	public InterfaceClient() {                
 	    this.setTitle("Chat");
-	    this.setSize(500, 600);
+	    this.setSize(700, 600);
 	    this.setLocationRelativeTo(null);
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    
@@ -30,12 +30,14 @@ public class InterfaceClient extends JFrame {
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 	    chat.setEditable(false);
 	    users = new JTextArea();
+	    JScrollPane scrollUsers = new JScrollPane(users);
+	    users.setColumns(10);
 	    users.setEditable(false);
 	    send = new JButton("Envoyer");
 	    paneBottom.add(input, BorderLayout.CENTER);
 	    paneBottom.add(send, BorderLayout.LINE_END);
 	    pane.add(scrollPane, BorderLayout.CENTER);
-	    pane.add(users, BorderLayout.LINE_END);
+	    pane.add(scrollUsers, BorderLayout.LINE_END);
 	    pane.add(paneBottom, BorderLayout.PAGE_END);
 	    this.getRootPane().setDefaultButton(send);
 	    this.getContentPane().add(pane);
