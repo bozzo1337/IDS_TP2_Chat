@@ -1,14 +1,19 @@
 package nf;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.rmi.*;
 import java.util.*;
 
 public class RegistryClientsImpl implements RegistryClients {
 
-	private ArrayList<Client_itf> clients;
+	//private ArrayList<Client_itf> clients;
+	private ObservableList<Client_itf> clients;
 
 	public RegistryClientsImpl(){
-		this.clients = new ArrayList<Client_itf>();
+
+		this.clients = FXCollections.observableList(new ArrayList<Client_itf>());
 	}
 
 	public boolean register(Client_itf client) throws RemoteException {
@@ -52,7 +57,7 @@ public class RegistryClientsImpl implements RegistryClients {
 		}
 	}
 
-	public ArrayList<Client_itf> getClients(){
+	public ObservableList<Client_itf> getClients(){
 		return this.clients;
 	}
 
