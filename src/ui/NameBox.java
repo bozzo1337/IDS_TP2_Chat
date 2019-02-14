@@ -19,8 +19,10 @@ public class NameBox {
     private Button reset;
     private String title;
     private Label errLabel;
+    private RegistryClients reg;
+    private Client_itf client;
 
-    public NameBox(Stage primaryStage) {
+    public NameBox(Stage primaryStage, RegistryClients reg, Client_itf client) {
         this.title = "Name Box";
         this.primaryStage = primaryStage;
         this.nameBoxRoot = new BorderPane();
@@ -36,6 +38,8 @@ public class NameBox {
         this.nameBoxRoot.setBottom(bottom);
         this.setConnectButtonOnAction();
         this.setResetButtonOnAction();
+        this.reg = reg;
+        this.client = client;
     }
 
     private void setConnectButtonOnAction(){
