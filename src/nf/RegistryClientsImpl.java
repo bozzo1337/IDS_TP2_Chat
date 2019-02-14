@@ -8,7 +8,6 @@ import java.util.*;
 
 public class RegistryClientsImpl implements RegistryClients {
 
-	//private ArrayList<Client_itf> clients;
 	private ObservableList<Client_itf> clients;
 
 	public RegistryClientsImpl(){
