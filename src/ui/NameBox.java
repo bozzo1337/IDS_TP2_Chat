@@ -10,6 +10,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import nf.ChatClient;
+import nf.Client_itf;
+import nf.RegistryClients;
+
+import java.rmi.RemoteException;
 
 public class NameBox {
     private Stage primaryStage;
@@ -19,9 +24,17 @@ public class NameBox {
     private Button reset;
     private String title;
     private Label errLabel;
+    private ChatBox chatBox;
+    private ChatClient c;
+    private RegistryClients reg;
+    private Client_itf c_stub;
 
-    public NameBox(Stage primaryStage) {
+    public NameBox(Stage primaryStage, ChatBox chatBox, ChatClient c, RegistryClients reg, Client_itf c_stub) {
+        this.c_stub = c_stub;
+        this.c = c;
+        this.reg = reg;
         this.title = "Name Box";
+        this.chatBox = chatBox;
         this.primaryStage = primaryStage;
         this.nameBoxRoot = new BorderPane();
         this.textField = new TextField();
@@ -51,9 +64,18 @@ public class NameBox {
                         errLabel.setText("** Erreur : Ce nom n'est pas autorisé **");
                         primaryStage.show();
                     } else {
-                        //c.setName(nameEntry);
+                        try {
+                            c.setName(nameEntry);
+                        } catch (RemoteException e) {
+                            e.printStackTrace();
+                        }
                         //Enregistrement au registre
-                        //registered = reg.register(c_stub);
+                        try {
+                            registered = reg.register(c_stub);
+                        } catch (RemoteException e) {
+                            e.printStackTrace();
+                        }
+                        primaryStage.setScene(new Scene(chatBox));
                         textField.clear();
                     }
 
@@ -68,6 +90,7 @@ public class NameBox {
             }
         });
     }
+
 
 
     public BorderPane getNameBoxRoot() {
