@@ -7,7 +7,7 @@ public class ChatBoxTest extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        ChatBox cb = new ChatBox(primaryStage,null);
+        //ChatBox cb = new ChatBox(primaryStage,null);
 
     }
 
