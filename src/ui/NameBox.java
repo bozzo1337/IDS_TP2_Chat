@@ -49,6 +49,7 @@ public class NameBox {
         this.nameBoxRoot.setBottom(bottom);
         this.setConnectButtonOnAction();
         this.setResetButtonOnAction();
+
     }
 
     private void setConnectButtonOnAction(){

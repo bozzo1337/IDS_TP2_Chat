@@ -122,6 +122,8 @@ public class ChatBox extends Parent {
                         reg.unregister(c_stub);
                         System.out.println("** Fin du chat, miaou ! **");
                         }
+
+
                     }
                 } catch (RemoteException e) {
                    messages.getItems().add(new Label("Error on client: " + e));
