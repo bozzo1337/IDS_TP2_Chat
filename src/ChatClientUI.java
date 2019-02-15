@@ -14,14 +14,13 @@ public class ChatClientUI extends Application implements Client_itf {
     private NameBox nameBox;
     private static Chat chat;
     private static Client_itf c_stub;
+    private static ChatClientUI client;
     private static RegistryClients reg;
-    private static ChatClientUI c;
-
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        chatBox = new ChatBox(primaryStage, chat, reg, c);
-        nameBox = new NameBox(primaryStage, chatBox, reg, c);
+        chatBox = new ChatBox(primaryStage, chat, reg, client);
+        nameBox = new NameBox(primaryStage, chatBox, reg, c_stub);
         primaryStage.setResizable(false);
         primaryStage.setTitle(nameBox.getTitle());
         primaryStage.setScene(new Scene(nameBox.getNameBoxRoot()));
@@ -42,21 +41,21 @@ public class ChatClientUI extends Application implements Client_itf {
             Registry registry = LocateRegistry.getRegistry(host);
 
             //Creation de la reference client
-            c = new ChatClientUI();
-            c_stub = (Client_itf) UnicastRemoteObject.exportObject(c, 0);
+            client = new ChatClientUI();
+            c_stub = (Client_itf) UnicastRemoteObject.exportObject(client, 0);
 
             //Recuperation des services serveur
             chat = (Chat) registry.lookup("ChatService");
             reg = (RegistryClients) registry.lookup("RegistryService");
 
-            launch(args);
+            client.launch();
         } catch (Exception e) {
             System.err.println("Error on client : " + e);
         }
     }
 
     public void receive (String message) throws RemoteException {
-        chatBox.getMessages().getItems().addAll(new Label(message));
+        this.chatBox.getMessages().getItems().addAll(new Label(message));
     }
 
     public String getName() throws RemoteException {

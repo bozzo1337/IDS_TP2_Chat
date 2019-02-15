@@ -21,14 +21,12 @@ public class NameBox {
     private Label errLabel;
     private ChatBox chatBox;
     private RegistryClients reg;
-    private ChatClientUI client;
     private Client_itf c_stub;
 
-    public NameBox(Stage primaryStage, ChatBox chatBox, RegistryClients reg, ChatClientUI client) {
-        this.client = client;
-        this.c_stub = client.getRef();
+    public NameBox(Stage primaryStage, ChatBox chatBox, RegistryClients reg, Client_itf client) {
+        this.c_stub = client;
         this.reg = reg;
-        this.title = "Name Box";
+        this.title = "Chat";
         this.chatBox = chatBox;
         this.primaryStage = primaryStage;
         this.nameBoxRoot = new BorderPane();
@@ -44,8 +42,6 @@ public class NameBox {
         this.nameBoxRoot.setBottom(bottom);
         this.setConnectButtonOnAction();
         this.setResetButtonOnAction();
-        client.setNameBox(this);
-
     }
 
     private void setConnectButtonOnAction(){
@@ -69,7 +65,9 @@ public class NameBox {
                         //Enregistrement au registre
                         try {
                             if(registered = reg.register(c_stub)){
-                                primaryStage.setScene(new Scene(chatBox));
+                                primaryStage.setHeight(1000);
+                                primaryStage.setWidth(700);
+                                primaryStage.setScene(new Scene(chatBox.getChatRoot()));
                                 textField.clear();
                             }
                         } catch (RemoteException e) {

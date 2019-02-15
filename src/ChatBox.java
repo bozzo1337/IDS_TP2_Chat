@@ -22,15 +22,15 @@ public class ChatBox extends Parent {
     private final ListView<String> onlineUsers;
     private final ListView<Label> messages;
     private RegistryClients reg;
-    private ChatClientUI client;
     private Client_itf c_stub;
+    private ChatClientUI client;
     private Chat chat;
 
 
 
     public ChatBox(Stage primStage, Chat chat, RegistryClients reg, ChatClientUI client) {
         this.client = client;
-        this.c_stub = client.getRef();
+        this.c_stub = this.client.getRef();
         this.chat = chat;
         this.reg = reg;
         this.primaryStage = primStage;
@@ -54,21 +54,16 @@ public class ChatBox extends Parent {
         bottom.setCenter(this.message);
         this.chatRoot.setBottom(bottom);
         this.onlineUsers = new ListView<>();
-        this.onlineUsers.getItems().setAll("Mouataz","Benjamin");
         try {
             this.putListennerOnConnectedPeople(reg.getClients());
         } catch (RemoteException e) {
             e.printStackTrace();
         }
         this.onlineUsers.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        this.connectedUsers.setTop(new Label("Online users"));
+        this.connectedUsers.setTop(new Label("Connectés"));
         this.connectedUsers.setCenter(this.onlineUsers);
         this.chatRoot.setLeft(this.connectedUsers);
-        this.primaryStage.setTitle("ChatBox");
-        this.primaryStage.setHeight(1000);
-        this.primaryStage.setWidth(700);
-        this.primaryStage.setScene(new Scene(this.chatRoot));
-        this.primaryStage.show();
+        
         client.setChatBox(this);
     }
 
@@ -133,6 +128,10 @@ public class ChatBox extends Parent {
 
 
     public ListView<Label> getMessages() {
-        return messages;
+        return this.messages;
+    }
+
+    public BorderPane getChatRoot(){
+        return chatRoot;
     }
 }
