@@ -1,5 +1,3 @@
-package ui;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -10,9 +8,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import nf.ChatClient;
-import nf.Client_itf;
-import nf.RegistryClients;
 
 import java.rmi.RemoteException;
 
@@ -25,13 +20,11 @@ public class NameBox {
     private String title;
     private Label errLabel;
     private ChatBox chatBox;
-    private ChatClient c;
     private RegistryClients reg;
     private Client_itf c_stub;
 
-    public NameBox(Stage primaryStage, ChatBox chatBox, ChatClient c, RegistryClients reg, Client_itf c_stub) {
+    public NameBox(Stage primaryStage, ChatBox chatBox, RegistryClients reg, Client_itf c_stub) {
         this.c_stub = c_stub;
-        this.c = c;
         this.reg = reg;
         this.title = "Name Box";
         this.chatBox = chatBox;
@@ -39,9 +32,9 @@ public class NameBox {
         this.nameBoxRoot = new BorderPane();
         this.textField = new TextField();
         this.errLabel = new Label();
-        this.connect = new Button("Connect");
-        this.reset = new Button("reset");
-        this.nameBoxRoot.setCenter(new VBox(new Label("Enter your User name"),textField,errLabel));
+        this.connect = new Button("Connexion");
+        this.reset = new Button("Reset");
+        this.nameBoxRoot.setCenter(new VBox(new Label("Entrez votre nom"),textField,errLabel));
         BorderPane bottom = new BorderPane();
         HBox hBox = new HBox(connect,reset);
         hBox.setSpacing(20);
@@ -66,18 +59,20 @@ public class NameBox {
                         primaryStage.show();
                     } else {
                         try {
-                            c.setName(nameEntry);
+                            c_stub.setName(nameEntry);
                         } catch (RemoteException e) {
-                            e.printStackTrace();
+                            System.err.println(e);
                         }
                         //Enregistrement au registre
                         try {
-                            registered = reg.register(c_stub);
+                            if(reg.register(c_stub)){
+                                primaryStage.setScene(new Scene(chatBox));
+                                textField.clear();
+                            }
                         } catch (RemoteException e) {
-                            e.printStackTrace();
+                            System.err.println(e);
                         }
-                        primaryStage.setScene(new Scene(chatBox));
-                        textField.clear();
+                        
                     }
 
                 }

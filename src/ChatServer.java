@@ -1,5 +1,3 @@
-package nf;
-
 import java.rmi.server.*;
 import java.rmi.registry.*;
 

@@ -1,7 +1,6 @@
-package ui;
-
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Parent;
@@ -9,11 +8,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import nf.Chat;
-import nf.Client_itf;
-import nf.RegistryClients;
 
 import java.rmi.RemoteException;
+import java.util.*;
 
 public class ChatBox extends Parent {
     private Stage primaryStage;
@@ -24,18 +21,16 @@ public class ChatBox extends Parent {
     private TextField message;
     private final ListView<String> onlineUsers;
     private final ListView<Label> messages;
-    private Chat chatService;
     private RegistryClients reg;
-    private String clientName;
     private Client_itf c_stub;
+    private Chat chat;
 
 
 
-    public ChatBox(Stage primStage, Chat chatService, RegistryClients reg, String clientName,Client_itf c_stub) {
+    public ChatBox(Stage primStage, Chat chat, RegistryClients reg, Client_itf c_stub) {
         this.c_stub = c_stub;
-        this.clientName = clientName;
+        this.chat = chat;
         this.reg = reg;
-        this.chatService = chatService;
         this.primaryStage = primStage;
         this.chatRoot = new BorderPane();
         this.messageContainer = new ScrollPane();
@@ -51,7 +46,7 @@ public class ChatBox extends Parent {
         this.messageContainer.setContent(this.messages);
         this.chatRoot.setCenter(this.messageContainer);
         BorderPane bottom = new BorderPane();
-        this.sendButton = new Button("Publish");
+        this.sendButton = new Button("Envoyer");
         this.message = new TextField();
         bottom.setLeft(this.sendButton);
         bottom.setCenter(this.message);
@@ -74,7 +69,8 @@ public class ChatBox extends Parent {
         this.primaryStage.show();
     }
 
-   public void putListennerOnConnectedPeople(ObservableList<Client_itf> connectedUsers) {
+   public void putListennerOnConnectedPeople(ArrayList<Client_itf> listUsers) {
+        ObservableList<Client_itf> connectedUsers = FXCollections.observableList(listUsers);
         connectedUsers.addListener(new ListChangeListener<Client_itf>() {
            @Override
            public void onChanged(Change<? extends Client_itf> c) {
@@ -93,7 +89,7 @@ public class ChatBox extends Parent {
                     if(!msg.equals("/quit")){
                         if(message.equals("/history")) {
                             //Affichage de l'historique
-                            messages.getItems().addAll(new Label(chatService.loadHistory()));
+                            messages.getItems().addAll(new Label(chat.loadHistory()));
                             }
                          else if (message.equals("/help")) {
                              messages.getItems().addAll(new Label("\"** Commandes disponibles : **\\n\" +\n" +
@@ -111,7 +107,7 @@ public class ChatBox extends Parent {
                             } else {
                                 String scString = message.getText() ;
                                 String[] parts = scString.split(" ");
-                                chatService.whisper(reg, c_stub, parts[1], parts[2]);
+                                chat.whisper(reg, c_stub, parts[1], parts[2]);
                                 }
                             }
                             else{
@@ -133,7 +129,7 @@ public class ChatBox extends Parent {
  }
 
 
-    public ScrollPane getMessageContainer() {
-        return messageContainer;
+    public ListView<Label> getMessages() {
+        return messages;
     }
 }

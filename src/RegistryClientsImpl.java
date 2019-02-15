@@ -1,18 +1,13 @@
-package nf;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import java.rmi.*;
 import java.util.*;
 
 public class RegistryClientsImpl implements RegistryClients {
 
-	private ObservableList<Client_itf> clients;
+	private ArrayList<Client_itf> clients;
 
 	public RegistryClientsImpl(){
 
-		this.clients = FXCollections.observableList(new ArrayList<Client_itf>());
+		this.clients = new ArrayList<Client_itf>();
 	}
 
 	public boolean register(Client_itf client) throws RemoteException {
@@ -26,7 +21,6 @@ public class RegistryClientsImpl implements RegistryClients {
 		}
 		if (!alreadyRegistered) {
 			clients.add(client);
-			client.setColor(ColorString.drawColor());
 			client.receive("** Bienvenue sur le service de chat, " + client.getName() + " **");
 			//Broadcast sauf pour l'utilisateur qui vient de se connecter
 			for(int j = 0 ; j < clients.size() ; j++) {
@@ -56,7 +50,7 @@ public class RegistryClientsImpl implements RegistryClients {
 		}
 	}
 
-	public ObservableList<Client_itf> getClients(){
+	public ArrayList<Client_itf> getClients() throws RemoteException{
 		return this.clients;
 	}
 

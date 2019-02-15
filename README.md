@@ -10,18 +10,18 @@ Cette application de chat ne peut être utilisée qu'à partir d'un terminal non
 
 # Architecture
 Le serveur enregistre deux interfaces au Registre RMI :
-	- nf.Chat : interface permettant au client de publier ses messages sur le chat (méthode
+	- Chat : interface permettant au client de publier ses messages sur le chat (méthode
 		publish), d'envoyer un message privé à un utilisateur (méthode whisper) et
 		d'afficher l'historique des conversations (fonction loadHistory).
 		Cette interface comporte également la méthode broadcast permettant de diffuser le
 		message aux autres utilisateurs.
 		L'implémentation de cette interface gère l'historique des messages.
-	- nf.RegistryClients : interface permettant au client de s'enregistrer auprès du serveur
+	- RegistryClients : interface permettant au client de s'enregistrer auprès du serveur
 		(fonction register) et de se retirer des inscrits lorsqu'il quitte le chat
 		(méthode unregister).
 
 Le client envoie directement au serveur une interface :
-	- nf.Client_itf : interface permettant au serveur d'envoyer un message au client
+	- Client_itf : interface permettant au serveur d'envoyer un message au client
 		(méthode receive), de récupérer le nom du client (fonction getName) et de fixer
 		sa couleur à l'enregistrement (méthode setColor).
 
