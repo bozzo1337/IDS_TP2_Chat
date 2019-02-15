@@ -21,10 +21,12 @@ public class NameBox {
     private Label errLabel;
     private ChatBox chatBox;
     private RegistryClients reg;
+    private ChatClientUI client;
     private Client_itf c_stub;
 
-    public NameBox(Stage primaryStage, ChatBox chatBox, RegistryClients reg, Client_itf c_stub) {
-        this.c_stub = c_stub;
+    public NameBox(Stage primaryStage, ChatBox chatBox, RegistryClients reg, ChatClientUI client) {
+        this.client = client;
+        this.c_stub = client.getRef();
         this.reg = reg;
         this.title = "Name Box";
         this.chatBox = chatBox;
@@ -42,6 +44,7 @@ public class NameBox {
         this.nameBoxRoot.setBottom(bottom);
         this.setConnectButtonOnAction();
         this.setResetButtonOnAction();
+        client.setNameBox(this);
 
     }
 
@@ -65,7 +68,7 @@ public class NameBox {
                         }
                         //Enregistrement au registre
                         try {
-                            if(reg.register(c_stub)){
+                            if(registered = reg.register(c_stub)){
                                 primaryStage.setScene(new Scene(chatBox));
                                 textField.clear();
                             }

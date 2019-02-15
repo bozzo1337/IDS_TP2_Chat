@@ -22,13 +22,15 @@ public class ChatBox extends Parent {
     private final ListView<String> onlineUsers;
     private final ListView<Label> messages;
     private RegistryClients reg;
+    private ChatClientUI client;
     private Client_itf c_stub;
     private Chat chat;
 
 
 
-    public ChatBox(Stage primStage, Chat chat, RegistryClients reg, Client_itf c_stub) {
-        this.c_stub = c_stub;
+    public ChatBox(Stage primStage, Chat chat, RegistryClients reg, ChatClientUI client) {
+        this.client = client;
+        this.c_stub = client.getRef();
         this.chat = chat;
         this.reg = reg;
         this.primaryStage = primStage;
@@ -67,6 +69,7 @@ public class ChatBox extends Parent {
         this.primaryStage.setWidth(700);
         this.primaryStage.setScene(new Scene(this.chatRoot));
         this.primaryStage.show();
+        client.setChatBox(this);
     }
 
    public void putListennerOnConnectedPeople(ArrayList<Client_itf> listUsers) {
